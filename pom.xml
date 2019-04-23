@@ -35,7 +35,7 @@
     </dependencies>
 
     <build>
-        <finalName>fun4-backend</finalName>
+        <finalName>fitnessapp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
