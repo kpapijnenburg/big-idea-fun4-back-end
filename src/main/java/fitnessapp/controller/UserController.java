@@ -31,9 +31,9 @@ public class UserController implements IController<User> {
 
         //noinspection OptionalIsPresent
         if (user.isPresent()) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            return ResponseEntity.ok(user.get());
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.notFound().build();
 
     }
 
@@ -42,9 +42,9 @@ public class UserController implements IController<User> {
         List<User> users = service.getAll();
 
         if (users.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         }
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return ResponseEntity.ok(users);
     }
 
     @RequestMapping(method = RequestMethod.POST)
