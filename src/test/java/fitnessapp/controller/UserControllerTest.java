@@ -1,6 +1,5 @@
 package fitnessapp.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import fitnessapp.model.User;
 import fitnessapp.service.UserService;
 import org.junit.Before;
@@ -14,7 +13,6 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyByte;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
