@@ -1,5 +1,6 @@
 package fitnessapp.config;
 
+import fitnessapp.service.SetService;
 import fitnessapp.service.UserService;
 import fitnessapp.service.WorkOutService;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,11 @@ public class DependencyInjection {
     @Bean
     public WorkOutService getWorkOutService(){
         return new WorkOutService();
+    }
+
+    @Bean
+    public SetService getSetService(){
+        return new SetService();
     }
 
 }
