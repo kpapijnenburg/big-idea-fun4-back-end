@@ -3,22 +3,22 @@ package fitnessapp.model;
 public class Set {
 
     private long id;
-    private long workOutId;
+    private WorkOut workOut;
     private float weight;
     private int reps;
 
     public Set() {
     }
 
-    public Set(long workOutId, float weight, int reps) {
-        this.workOutId = workOutId;
+    public Set(WorkOut workOut, float weight, int reps) {
+        this.workOut = workOut;
         this.weight = weight;
         this.reps = reps;
     }
 
-    public Set(long id, long workOutId, float weight, int reps) {
+    public Set(long id, WorkOut workOut, float weight, int reps) {
         this.id = id;
-        this.workOutId = workOutId;
+        this.workOut = workOut;
         this.weight = weight;
         this.reps = reps;
     }
@@ -31,12 +31,12 @@ public class Set {
         this.id = id;
     }
 
-    public long getWorkOutId() {
-        return workOutId;
+    public WorkOut getWorkOut() {
+        return workOut;
     }
 
-    public void setWorkOutId(long workOutId) {
-        this.workOutId = workOutId;
+    public void setWorkOut(WorkOut workOut) {
+        this.workOut = workOut;
     }
 
     public float getWeight() {
