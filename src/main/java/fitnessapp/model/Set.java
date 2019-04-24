@@ -1,24 +1,26 @@
 package fitnessapp.model;
 
+import java.util.List;
+
 public class Set {
 
     private long id;
-    private WorkOut workOut;
+    private List<Exercise> exercises;
     private float weight;
     private int reps;
 
     public Set() {
     }
 
-    public Set(WorkOut workOut, float weight, int reps) {
-        this.workOut = workOut;
+    public Set(long id, List<Exercise> exercises, float weight, int reps) {
+        this.id = id;
+        this.exercises = exercises;
         this.weight = weight;
         this.reps = reps;
     }
 
-    public Set(long id, WorkOut workOut, float weight, int reps) {
-        this.id = id;
-        this.workOut = workOut;
+    public Set(List<Exercise> exercises, float weight, int reps) {
+        this.exercises = exercises;
         this.weight = weight;
         this.reps = reps;
     }
@@ -31,13 +33,6 @@ public class Set {
         this.id = id;
     }
 
-    public WorkOut getWorkOut() {
-        return workOut;
-    }
-
-    public void setWorkOut(WorkOut workOut) {
-        this.workOut = workOut;
-    }
 
     public float getWeight() {
         return weight;
@@ -53,5 +48,13 @@ public class Set {
 
     public void setReps(int reps) {
         this.reps = reps;
+    }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

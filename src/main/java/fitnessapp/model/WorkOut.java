@@ -1,6 +1,7 @@
 package fitnessapp.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class WorkOut {
 
@@ -8,21 +9,25 @@ public class WorkOut {
     private long userId;
     private String name;
     private Date date;
+    private List<Set> sets;
 
     public WorkOut() {
+
     }
 
-    public WorkOut(long userId, String name, Date date) {
-        this.userId = userId;
-        this.name = name;
-        this.date = date;
-    }
-
-    public WorkOut(long id, long userId, String name, Date date) {
+    public WorkOut(long id, long userId, String name, Date date, List<Set> sets) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.date = date;
+        this.sets = sets;
+    }
+
+    public WorkOut(long userId, String name, Date date, List<Set> sets) {
+        this.userId = userId;
+        this.name = name;
+        this.date = date;
+        this.sets = sets;
     }
 
     public long getId() {
@@ -55,5 +60,13 @@ public class WorkOut {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<Set> getSets() {
+        return sets;
+    }
+
+    public void setSets(List<Set> sets) {
+        this.sets = sets;
     }
 }

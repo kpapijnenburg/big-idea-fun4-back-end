@@ -1,22 +1,20 @@
 package fitnessapp.model;
 
-public class Excercise {
+public class Category {
 
     private long id;
-    private Set set;
     private String name;
 
-    public Excercise() {
+    public Category() {
+
     }
 
-    public Excercise(long id, Set set, String name) {
+    public Category(long id, String name) {
         this.id = id;
-        this.set = set;
         this.name = name;
     }
 
-    public Excercise(Set set, String name) {
-        this.set = set;
+    public Category(String name) {
         this.name = name;
     }
 
@@ -26,14 +24,6 @@ public class Excercise {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Set getSet() {
-        return set;
-    }
-
-    public void setSet(Set set) {
-        this.set = set;
     }
 
     public String getName() {
