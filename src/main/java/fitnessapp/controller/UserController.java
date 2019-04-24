@@ -2,33 +2,83 @@ package fitnessapp.controller;
 
 import fitnessapp.interfaces.IController;
 import fitnessapp.model.User;
+import fitnessapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController implements IController<User> {
 
-    public ResponseEntity<User> getById(long id) {
-        return null;
+    private UserService service;
+
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<User> getById(@PathVariable long id) {
+        Optional<User> user = service.getById(id);
+
+        //noinspection OptionalIsPresent
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAll() {
-        return null;
+        List<User> users = service.getAll();
+
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(User user) {
-        return null;
+        if (service.save(user)) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        return new ResponseEntity(HttpStatus.CONFLICT);
     }
 
-    public ResponseEntity update(User user) {
-        return null;
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable long id) {
+        Optional<User> user = service.getById(id);
+
+        if (user.isPresent()) {
+            if (service.update(user.get())) {
+                return new ResponseEntity(HttpStatus.ACCEPTED);
+            }
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity delete(User user) {
-        return null;
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable long id) {
+        Optional<User> user = service.getById(id);
+
+        if (user.isPresent()) {
+            if (service.delete(user.get())) {
+                return new ResponseEntity(HttpStatus.ACCEPTED);
+            }
+
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

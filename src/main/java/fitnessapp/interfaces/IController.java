@@ -9,6 +9,6 @@ public interface IController<T> {
     ResponseEntity<T> getById (long id);
     ResponseEntity<List<T>> getAll();
     ResponseEntity save(T t);
-    ResponseEntity update(T t);
-    ResponseEntity delete(T t);
+    ResponseEntity update(long id);
+    ResponseEntity delete(long id);
 }
