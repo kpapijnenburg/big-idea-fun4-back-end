@@ -1,11 +1,14 @@
 package fitnessapp.model;
 
+import java.util.List;
+
 public class User {
 
     private long id;
     private String name;
     private String email;
     private String password;
+    private List<WorkOut> workOuts;
 
     public User() {
 
@@ -18,10 +21,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, List<WorkOut> workOuts) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.workOuts = workOuts;
     }
 
     public long getId() {
@@ -54,5 +58,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<WorkOut> getWorkOuts() {
+        return workOuts;
+    }
+
+    public void setWorkOuts(List<WorkOut> workOuts) {
+        this.workOuts = workOuts;
     }
 }

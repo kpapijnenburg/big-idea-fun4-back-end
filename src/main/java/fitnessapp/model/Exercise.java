@@ -1,23 +1,23 @@
 package fitnessapp.model;
 
+import java.util.List;
+
 public class Exercise {
 
     private long id;
-    private Set set;
     private String name;
+    private List<Category> categories;
 
     public Exercise() {
 
     }
 
-    public Exercise(long id, Set set, String name) {
+    public Exercise(long id, String name) {
         this.id = id;
-        this.set = set;
         this.name = name;
     }
 
-    public Exercise(Set set, String name) {
-        this.set = set;
+    public Exercise(String name) {
         this.name = name;
     }
 
@@ -27,14 +27,6 @@ public class Exercise {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Set getSet() {
-        return set;
-    }
-
-    public void setSet(Set set) {
-        this.set = set;
     }
 
     public String getName() {

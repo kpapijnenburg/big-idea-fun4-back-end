@@ -1,5 +1,7 @@
 package fitnessapp.config;
 
+import fitnessapp.model.Exercise;
+import fitnessapp.service.ExerciseService;
 import fitnessapp.service.SetService;
 import fitnessapp.service.UserService;
 import fitnessapp.service.WorkOutService;
@@ -22,6 +24,11 @@ public class DependencyInjection {
     @Bean
     public SetService getSetService(){
         return new SetService();
+    }
+
+    @Bean
+    public ExerciseService getExerciseService(){
+        return new ExerciseService();
     }
 
 }
