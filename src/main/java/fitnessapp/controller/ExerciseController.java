@@ -93,4 +93,14 @@ public class ExerciseController implements IController<Exercise> {
         }
         return ResponseEntity.ok(exercises);
     }
+
+    @RequestMapping(value = "getByCategoryId/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Exercise>> getByCategoryId(@PathVariable long id){
+        List<Exercise> exercises = service.getByCategoryId(id);
+
+        if (exercises.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(exercises);
+    }
 }

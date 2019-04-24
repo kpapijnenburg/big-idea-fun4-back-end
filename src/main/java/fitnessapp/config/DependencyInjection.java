@@ -1,10 +1,7 @@
 package fitnessapp.config;
 
 import fitnessapp.model.Exercise;
-import fitnessapp.service.ExerciseService;
-import fitnessapp.service.SetService;
-import fitnessapp.service.UserService;
-import fitnessapp.service.WorkOutService;
+import fitnessapp.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,6 +26,11 @@ public class DependencyInjection {
     @Bean
     public ExerciseService getExerciseService(){
         return new ExerciseService();
+    }
+
+    @Bean
+    public CategoryService getCategoryService(){
+        return new CategoryService();
     }
 
 }

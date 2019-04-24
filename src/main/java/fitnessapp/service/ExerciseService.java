@@ -35,4 +35,8 @@ public class ExerciseService implements IService {
     public List<Exercise> getBySetId(long id){
         return null;
     }
+
+    public List<Exercise> getByCategoryId(long id) {
+        return null;
+    }
 }
