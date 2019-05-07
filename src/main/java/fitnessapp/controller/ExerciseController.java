@@ -6,10 +6,7 @@ import fitnessapp.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,11 +55,15 @@ public class ExerciseController implements IController<Exercise> {
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable long id) {
-        Optional<Exercise> exercise = service.getById(id);
+    public ResponseEntity update(@RequestBody Exercise received, @PathVariable long id) {
+        Optional<Exercise> target = service.getById(id);
 
-        if (exercise.isPresent()) {
-            if (service.update(exercise.get())) {
+        if (target.isPresent()) {
+            Exercise exercise = target.get();
+
+            exercise.setName(received.getName());
+
+            if (service.update(exercise)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -85,20 +86,20 @@ public class ExerciseController implements IController<Exercise> {
     }
 
     @RequestMapping(value = "/getBySetId/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getBySetId(@PathVariable long id){
+    public ResponseEntity<List<Exercise>> getBySetId(@PathVariable long id) {
         List<Exercise> exercises = service.getBySetId(id);
 
-        if (exercises.isEmpty()){
+        if (exercises.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(exercises);
     }
 
     @RequestMapping(value = "getByCategoryId/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getByCategoryId(@PathVariable long id){
+    public ResponseEntity<List<Exercise>> getByCategoryId(@PathVariable long id) {
         List<Exercise> exercises = service.getByCategoryId(id);
 
-        if (exercises.isEmpty()){
+        if (exercises.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(exercises);

@@ -13,10 +13,11 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="fitnessapp.model.User"></mapping>
-        <mapping class="fitnessapp.model.Exercise"></mapping>
-        <mapping class="fitnessapp.model.Category"></mapping>
-        <mapping class="fitnessapp.model.WorkOut"></mapping>
-        <mapping class="fitnessapp.model.Set"></mapping>
+        <property name="hibernate.connection.autocommit">true</property>
+        <mapping class="fitnessapp.model.User"/>
+        <mapping class="fitnessapp.model.Exercise"/>
+        <mapping class="fitnessapp.model.Category"/>
+        <mapping class="fitnessapp.model.WorkOut"/>
+        <mapping class="fitnessapp.model.Set"/>
     </session-factory>
 </hibernate-configuration>

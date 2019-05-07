@@ -6,10 +6,7 @@ import fitnessapp.service.WorkOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,18 +48,24 @@ public class WorkOutController implements IController<WorkOut> {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity save(WorkOut workOut) {
         if (service.save(workOut)) {
-            return  ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        return  ResponseEntity.status(HttpStatus.CONFLICT).build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable long id) {
-        Optional<WorkOut> workOut = service.getById(id);
+    public ResponseEntity update(@RequestBody WorkOut received, @PathVariable long id) {
+        Optional<WorkOut> optional = service.getById(id);
 
-        if (workOut.isPresent()) {
-            if (service.update(workOut.get())) {
+        if (optional.isPresent()) {
+            WorkOut workOut = optional.get();
+
+            workOut.setName(received.getName());
+            workOut.setDate(received.getDate());
+            workOut.setSets(received.getSets());
+
+            if (service.update(workOut)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -85,11 +88,11 @@ public class WorkOutController implements IController<WorkOut> {
     }
 
     @RequestMapping(value = "/getByUserId/{id}")
-    public ResponseEntity getByUserId(@PathVariable long id){
+    public ResponseEntity getByUserId(@PathVariable long id) {
         List<WorkOut> workOuts = service.getByUserId(id);
 
-        if (workOuts.isEmpty()){
-            return  ResponseEntity.noContent().build();
+        if (workOuts.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(workOuts);
     }

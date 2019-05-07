@@ -5,22 +5,23 @@ import java.util.List;
 public class Set {
 
     private long id;
-    private List<Exercise> exercises;
+    private Exercise exercise;
     private float weight;
     private int reps;
 
     public Set() {
+
     }
 
-    public Set(long id, List<Exercise> exercises, float weight, int reps) {
+    public Set(long id, Exercise exercise, float weight, int reps) {
         this.id = id;
-        this.exercises = exercises;
+        this.exercise = exercise;
         this.weight = weight;
         this.reps = reps;
     }
 
-    public Set(List<Exercise> exercises, float weight, int reps) {
-        this.exercises = exercises;
+    public Set(Exercise exercise, float weight, int reps) {
+        this.exercise = exercise;
         this.weight = weight;
         this.reps = reps;
     }
@@ -50,11 +51,11 @@ public class Set {
         this.reps = reps;
     }
 
-    public List<Exercise> getExercises() {
-        return exercises;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 }

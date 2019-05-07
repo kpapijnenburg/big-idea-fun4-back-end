@@ -6,10 +6,7 @@ import fitnessapp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,11 +55,15 @@ public class CategoryController implements IController<Category> {
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable long id) {
-        Optional<Category> category = service.getById(id);
+    public ResponseEntity update(@RequestBody Category received, @PathVariable long id) {
+        Optional<Category> optional = service.getById(id);
 
-        if (category.isPresent()){
-            if (service.update(category.get())){
+        if (optional.isPresent()) {
+            Category target = optional.get();
+
+            target.setName(received.getName());
+
+            if (service.update(target)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -71,11 +72,13 @@ public class CategoryController implements IController<Category> {
     }
 
     @Override
-    public ResponseEntity delete(long id) {
+    @RequestMapping(value = "/{id}")
+    public ResponseEntity delete(@PathVariable long id) {
         Optional<Category> category = service.getById(id);
 
-        if (category.isPresent()){
-            if (service.delete(category.get())){
+        if (category.isPresent()) {
+
+            if (service.delete(category.get())) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

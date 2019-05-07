@@ -6,10 +6,7 @@ import fitnessapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +45,7 @@ public class UserController implements IController<User> {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity save(User user) {
+    public ResponseEntity save(@RequestBody User user) {
         if (service.save(user)) {
             return new ResponseEntity(HttpStatus.CREATED);
         }
@@ -56,29 +53,38 @@ public class UserController implements IController<User> {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable long id) {
-        Optional<User> user = service.getById(id);
+    public ResponseEntity update(@RequestBody User received, @PathVariable long id) {
+        Optional<User> optional = service.getById(id);
 
-        if (user.isPresent()) {
-            if (service.update(user.get())) {
+        if (optional.isPresent()) {
+            User target = optional.get();
+
+            target.setEmail(received.getEmail());
+            target.setPassword(received.getPassword());
+
+            if (service.update(target)) {
                 return new ResponseEntity(HttpStatus.ACCEPTED);
             }
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.notFound().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable long id) {
-        Optional<User> user = service.getById(id);
+        Optional<User> optional = service.getById(id);
 
-        if (user.isPresent()) {
-            if (service.delete(user.get())) {
+        if (optional.isPresent()) {
+            User target = optional.get();
+
+            if (service.delete(target)) {
                 return new ResponseEntity(HttpStatus.ACCEPTED);
             }
-
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.notFound().build();
     }
+
 }

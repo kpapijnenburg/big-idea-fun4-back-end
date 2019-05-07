@@ -3,7 +3,10 @@ package fitnessapp.service;
 import fitnessapp.config.HibernateUtil;
 import fitnessapp.interfaces.IService;
 import fitnessapp.model.User;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,17 +44,44 @@ public class UserService implements IService<User> {
 
     @Override
     public boolean save(User user) {
-        try(Session session = util.getSessionFactory().openSession()){
+        Transaction tx = null;
+
+        try (Session session = util.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+
             session.save(user);
+
+            tx.commit();
+
             return true;
-        } catch (Exception e ){
-            e.printStackTrace();
+        } catch (ConstraintViolationException e){
             return false;
         }
+        catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean update(User user) {
+        Transaction tx = null;
+
+        try(Session session = util.getSessionFactory().openSession()){
+            tx = session.beginTransaction();
+
+            session.update(user);
+
+            tx.commit();
+            return true;
+        } catch (HibernateException e){
+            if (tx != null){
+                tx.rollback();
+            }
+        }
         return false;
     }
 
