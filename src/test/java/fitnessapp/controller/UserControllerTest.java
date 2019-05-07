@@ -85,7 +85,7 @@ public class UserControllerTest {
         when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
         when(service.update(any(User.class))).thenReturn(false);
 
-        ResponseEntity response = controller.update(1);
+        ResponseEntity response = controller.update(new User(), 1);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
@@ -95,7 +95,7 @@ public class UserControllerTest {
         when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
         when(service.update(any(User.class))).thenReturn(true);
 
-        ResponseEntity response = controller.update(1);
+        ResponseEntity response = controller.update(new User(), 1);
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
     }
@@ -104,7 +104,7 @@ public class UserControllerTest {
     public void update_userNotInDataBase_returnsNotFound(){
         when(service.getById(any(long.class))).thenReturn(Optional.empty());
 
-        ResponseEntity response = controller.update(1);
+        ResponseEntity response = controller.update(any(User.class),1);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 

@@ -84,7 +84,7 @@ public class WorkOutControllerTest {
     public void update_workOutNotPresent_returnsNotFound() {
         when(service.getById(any(long.class))).thenReturn(Optional.empty());
 
-        ResponseEntity response = controller.update(any(long.class));
+        ResponseEntity response = controller.update(new WorkOut(),any(long.class));
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -94,7 +94,7 @@ public class WorkOutControllerTest {
         when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
         when(service.update(any(WorkOut.class))).thenReturn(true);
 
-        ResponseEntity response = controller.update(1);
+        ResponseEntity response = controller.update(new WorkOut(),1);
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
     }
@@ -104,7 +104,7 @@ public class WorkOutControllerTest {
         when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
         when(service.update(any(WorkOut.class))).thenReturn(false);
 
-        ResponseEntity response = controller.update(1);
+        ResponseEntity response = controller.update(new WorkOut(),1);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }

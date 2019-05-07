@@ -87,6 +87,20 @@ public class UserService implements IService<User> {
 
     @Override
     public boolean delete(User user) {
+        Transaction tx = null;
+
+        try(Session session = util.getSessionFactory().openSession()){
+            tx = session.beginTransaction();
+
+            session.delete(user);
+
+            tx.commit();
+            return true;
+        } catch (HibernateException e){
+            if (tx != null){
+                tx.rollback();
+            }
+        }
         return false;
     }
 }
