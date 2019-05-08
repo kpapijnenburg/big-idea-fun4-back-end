@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/categories")
+@CrossOrigin
 public class CategoryController implements IController<Category> {
 
     private CategoryService service;
