@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/exercises")
-@CrossOrigin
 public class ExerciseController implements IController<Exercise> {
 
     private ExerciseService service;
