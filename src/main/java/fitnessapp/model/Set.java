@@ -2,6 +2,8 @@ package fitnessapp.model;
 
 import javax.persistence.*;
 
+//todo onToOne excercise toevoegen.
+
 @Entity
 @Table(name = "Sets")
 public class Set {

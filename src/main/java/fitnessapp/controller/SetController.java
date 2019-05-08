@@ -47,7 +47,7 @@ public class SetController implements IController<Set> {
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity save(Set set) {
+    public ResponseEntity save(@RequestBody Set set) {
         if (service.save(set)) {
             return ResponseEntity.ok().build();
         }
