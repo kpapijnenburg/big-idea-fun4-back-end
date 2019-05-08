@@ -1,11 +1,17 @@
 package fitnessapp.model;
 
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
 public class Set {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToOne
     private Exercise exercise;
+
     private float weight;
     private int reps;
 

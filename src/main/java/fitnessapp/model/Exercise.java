@@ -1,24 +1,26 @@
 package fitnessapp.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Exercise {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Category.class)
     private List<Category> categories;
 
     public Exercise() {
 
     }
 
-    public Exercise(long id, String name) {
-        this.id = id;
+    public Exercise(String name, List<Category> categories) {
         this.name = name;
-    }
-
-    public Exercise(String name) {
-        this.name = name;
+        this.categories = categories;
     }
 
     public long getId() {
@@ -35,5 +37,13 @@ public class Exercise {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

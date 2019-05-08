@@ -6,7 +6,6 @@ import java.util.List;
 //todo add workouts
 
 @Entity
-@Table()
 public class User {
 
     @Id
@@ -14,13 +13,9 @@ public class User {
     private long id;
 
     private String name;
-
     private String email;
-
     private String password;
 
-//    @ManyToOne
-//    private List<WorkOut> workOuts;
 
     public User() {
 
@@ -37,7 +32,6 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-//        this.workOuts = workOuts;
     }
 
     public long getId() {
@@ -72,11 +66,4 @@ public class User {
         this.password = password;
     }
 
-//    public List<WorkOut> getWorkOuts() {
-//        return workOuts;
-//    }
-//
-//    public void setWorkOuts(List<WorkOut> workOuts) {
-//        this.workOuts = workOuts;
-//    }
 }

@@ -1,14 +1,20 @@
 package fitnessapp.model;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class WorkOut {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long userId;
     private String name;
     private Date date;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Set> sets;
 
     public WorkOut() {
