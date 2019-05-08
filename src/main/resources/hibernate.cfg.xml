@@ -9,11 +9,11 @@
         <property name="hibernate.connection.username">user</property>
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.pool_size">2</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+
         <mapping class="fitnessapp.model.User"/>
         <mapping class="fitnessapp.model.Exercise"/>
         <mapping class="fitnessapp.model.Category"/>

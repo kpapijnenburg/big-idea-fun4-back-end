@@ -62,7 +62,7 @@ public class SetController implements IController<Set> {
         if (optional.isPresent()) {
             Set set = optional.get();
 
-            set.setExercise(received.getExercise());
+            set.setExerciseId(received.getExerciseId());
             set.setReps(received.getReps());
             set.setWeight(received.getWeight());
 

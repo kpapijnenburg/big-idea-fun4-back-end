@@ -8,10 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-//todo add passwordr hashing.
+//todo add password hashing.
+// todo sanitize user
 
 public class UserService implements IService<User> {
 
@@ -102,5 +104,19 @@ public class UserService implements IService<User> {
             }
         }
         return false;
+    }
+
+    public User getByCredentials(String email, String password) {
+        try(Session session = util.getSessionFactory().openSession()){
+
+            String hql = "FROM User WHERE email = :email AND password = :password";
+            Query query = session.createQuery(hql);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+
+            return (User) query.getSingleResult();
+        } catch (HibernateException e){
+            return null;
+        }
     }
 }

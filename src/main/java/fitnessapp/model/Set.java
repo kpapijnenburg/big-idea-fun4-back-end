@@ -3,31 +3,23 @@ package fitnessapp.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Sets")
 public class Set {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
-    private Exercise exercise;
-
-    private float weight;
+    private int exerciseId;
+    private double weight;
     private int reps;
 
     public Set() {
 
     }
 
-    public Set(long id, Exercise exercise, float weight, int reps) {
-        this.id = id;
-        this.exercise = exercise;
-        this.weight = weight;
-        this.reps = reps;
-    }
-
-    public Set(Exercise exercise, float weight, int reps) {
-        this.exercise = exercise;
+    public Set(int exerciseId, float weight, int reps) {
+        this.exerciseId = exerciseId;
         this.weight = weight;
         this.reps = reps;
     }
@@ -41,11 +33,11 @@ public class Set {
     }
 
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -57,11 +49,11 @@ public class Set {
         this.reps = reps;
     }
 
-    public Exercise getExercise() {
-        return exercise;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 }

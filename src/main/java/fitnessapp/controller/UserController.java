@@ -1,5 +1,6 @@
 package fitnessapp.controller;
 
+import com.sun.deploy.net.HttpResponse;
 import fitnessapp.interfaces.IController;
 import fitnessapp.model.User;
 import fitnessapp.service.UserService;
@@ -84,6 +85,16 @@ public class UserController implements IController<User> {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
 
+        return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/getByCredentials", method = RequestMethod.POST)
+    public ResponseEntity getByCredentials(@RequestBody User credentials){
+        User user = service.getByCredentials(credentials.getEmail(), credentials.getPassword());
+
+        if (user != null){
+            return ResponseEntity.ok(user);
+        }
         return ResponseEntity.notFound().build();
     }
 
