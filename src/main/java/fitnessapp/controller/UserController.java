@@ -1,6 +1,5 @@
 package fitnessapp.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import fitnessapp.interfaces.IController;
 import fitnessapp.model.User;
 import fitnessapp.service.UserService;
