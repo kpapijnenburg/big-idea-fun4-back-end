@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
+@CrossOrigin(origins = "192.168.30.183:8082")
 public class UserController implements IController<User> {
 
     private UserService service;
