@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("192.168.30.183:8082/fitnessapp/")
 public class UserController implements IController<User> {
 
     private UserService service;
