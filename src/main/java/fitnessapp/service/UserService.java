@@ -24,13 +24,12 @@ public class UserService implements IService<User> {
     }
 
     @Override
-    public Optional<User> getById(long id) {
+    public User  getById(long id) {
         try(Session session = util.getSessionFactory().openSession()){
-            Optional<User> user = session.byId(User.class).loadOptional(1L);
-            return user;
+            return session.get(User.class, id);
         }catch (Exception e){
             e.printStackTrace();
-            return Optional.empty();
+            return null;
         }
     }
 

@@ -11,8 +11,8 @@ public class SetService implements IService<Set> {
 
 
     @Override
-    public Optional<Set> getById(long id) {
-        return Optional.empty();
+    public Set getById(long id) {
+        return null;
     }
 
     @Override

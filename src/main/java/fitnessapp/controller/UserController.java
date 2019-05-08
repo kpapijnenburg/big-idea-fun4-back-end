@@ -24,11 +24,11 @@ public class UserController implements IController<User> {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getById(@PathVariable long id) {
-        Optional<User> user = service.getById(id);
+        User user = service.getById(id);
 
         //noinspection OptionalIsPresent
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
 
@@ -54,11 +54,9 @@ public class UserController implements IController<User> {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody User received, @PathVariable long id) {
-        Optional<User> optional = service.getById(id);
+        User target = service.getById(id);
 
-        if (optional.isPresent()) {
-            User target = optional.get();
-
+        if (target != null) {
             target.setEmail(received.getEmail());
             target.setPassword(received.getPassword());
 
@@ -73,11 +71,9 @@ public class UserController implements IController<User> {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable long id) {
-        Optional<User> optional = service.getById(id);
+        User target = service.getById(id);
 
-        if (optional.isPresent()) {
-            User target = optional.get();
-
+        if (target != null) {
             if (service.delete(target)) {
                 return new ResponseEntity(HttpStatus.ACCEPTED);
             }

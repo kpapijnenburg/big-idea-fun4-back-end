@@ -25,10 +25,10 @@ public class CategoryController implements IController<Category> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> getById(@PathVariable long id) {
-        Optional<Category> category = service.getById(id);
+        Category category = service.getById(id);
 
-        if (category.isPresent()) {
-            return ResponseEntity.ok(category.get());
+        if (category != null) {
+            return ResponseEntity.ok(category);
         }
         return ResponseEntity.notFound().build();
     }
@@ -56,11 +56,9 @@ public class CategoryController implements IController<Category> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Category received, @PathVariable long id) {
-        Optional<Category> optional = service.getById(id);
+        Category target = service.getById(id);
 
-        if (optional.isPresent()) {
-            Category target = optional.get();
-
+        if (target != null) {
             target.setName(received.getName());
 
             if (service.update(target)) {
@@ -74,11 +72,11 @@ public class CategoryController implements IController<Category> {
     @Override
     @RequestMapping(value = "/{id}")
     public ResponseEntity delete(@PathVariable long id) {
-        Optional<Category> category = service.getById(id);
+        Category category = service.getById(id);
 
-        if (category.isPresent()) {
+        if (category != null) {
 
-            if (service.delete(category.get())) {
+            if (service.delete(category)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

@@ -28,7 +28,7 @@ public class UserControllerTest {
 
     @Test
     public void getById_UserIsPresent_returnsOKAndUser(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
+        when(service.getById(any(long.class))).thenReturn(new User());
 
         ResponseEntity response = controller.getById(1);
 
@@ -37,7 +37,7 @@ public class UserControllerTest {
 
     @Test
     public void getById_userIsNotPresent_returnsNotFound(){
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.getById(1);
 
@@ -82,7 +82,7 @@ public class UserControllerTest {
 
     @Test
     public void update_userIsNotUpdated_returnsConflict(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
+        when(service.getById(any(long.class))).thenReturn(new User());
         when(service.update(any(User.class))).thenReturn(false);
 
         ResponseEntity response = controller.update(new User(), 1);
@@ -92,7 +92,7 @@ public class UserControllerTest {
 
     @Test
     public void update_userIsUpdated_returnsAccepted(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
+        when(service.getById(any(long.class))).thenReturn(new User());
         when(service.update(any(User.class))).thenReturn(true);
 
         ResponseEntity response = controller.update(new User(), 1);
@@ -102,7 +102,7 @@ public class UserControllerTest {
 
     @Test
     public void update_userNotInDataBase_returnsNotFound(){
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.update(any(User.class),1);
 
@@ -112,7 +112,7 @@ public class UserControllerTest {
 
     @Test
     public void delete_userIsNotDeleted_returnsConflict(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
+        when(service.getById(any(long.class))).thenReturn(new User());
         when(service.delete(any(User.class))).thenReturn(false);
 
         ResponseEntity response = controller.delete(1);
@@ -122,7 +122,7 @@ public class UserControllerTest {
 
     @Test
     public void delete_userIsDeleted_returnsAccepted(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new User()));
+        when(service.getById(any(long.class))).thenReturn(new User());
         when(service.delete(any(User.class))).thenReturn(true);
 
         ResponseEntity response = controller.delete(1);
@@ -132,7 +132,7 @@ public class UserControllerTest {
 
     @Test
     public void delete_userNotPresentInDB_returnsNotFound(){
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.delete(1);
 

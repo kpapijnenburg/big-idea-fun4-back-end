@@ -28,7 +28,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void getById_workOutIsNotPresent_returnsNotFound() {
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.getById(any(long.class));
 
@@ -37,7 +37,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void getById_workOutIsPresent_returnsOk() {
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
+        when(service.getById(any(long.class))).thenReturn(new WorkOut());
 
         ResponseEntity response = controller.getById(1);
 
@@ -82,7 +82,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void update_workOutNotPresent_returnsNotFound() {
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.update(new WorkOut(),any(long.class));
 
@@ -91,7 +91,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void update_accepted_returnsAccepted() {
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
+        when(service.getById(any(long.class))).thenReturn(new WorkOut());
         when(service.update(any(WorkOut.class))).thenReturn(true);
 
         ResponseEntity response = controller.update(new WorkOut(),1);
@@ -101,7 +101,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void update_notAccepted_returnsConflict() {
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
+        when(service.getById(any(long.class))).thenReturn(new WorkOut());
         when(service.update(any(WorkOut.class))).thenReturn(false);
 
         ResponseEntity response = controller.update(new WorkOut(),1);
@@ -111,7 +111,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void delete_workOutNotPresent_returnsNotFound(){
-        when(service.getById(any(long.class))).thenReturn(Optional.empty());
+        when(service.getById(any(long.class))).thenReturn(null);
 
         ResponseEntity response = controller.delete(1);
 
@@ -120,7 +120,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void delete_accepted_returnsAccepted(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
+        when(service.getById(any(long.class))).thenReturn(new WorkOut());
         when(service.delete(any(WorkOut.class))).thenReturn(true);
 
         ResponseEntity response = controller.delete(1);
@@ -130,7 +130,7 @@ public class WorkOutControllerTest {
 
     @Test
     public void delete_notAccepted_returnsConflict(){
-        when(service.getById(any(long.class))).thenReturn(Optional.of(new WorkOut()));
+        when(service.getById(any(long.class))).thenReturn(new WorkOut());
         when(service.delete(any(WorkOut.class))).thenReturn(false);
 
         ResponseEntity response = controller.delete(1);

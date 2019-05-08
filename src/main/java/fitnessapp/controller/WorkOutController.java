@@ -25,10 +25,10 @@ public class WorkOutController implements IController<WorkOut> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<WorkOut> getById(@PathVariable long id) {
-        Optional<WorkOut> workOut = service.getById(id);
+        WorkOut workOut = service.getById(id);
 
-        if (workOut.isPresent()) {
-            return ResponseEntity.ok(workOut.get());
+        if (workOut != null) {
+            return ResponseEntity.ok(workOut);
         }
         return ResponseEntity.notFound().build();
     }
@@ -46,7 +46,7 @@ public class WorkOutController implements IController<WorkOut> {
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity save(WorkOut workOut) {
+    public ResponseEntity save(@RequestBody WorkOut workOut) {
         if (service.save(workOut)) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
@@ -56,10 +56,9 @@ public class WorkOutController implements IController<WorkOut> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody WorkOut received, @PathVariable long id) {
-        Optional<WorkOut> optional = service.getById(id);
+        WorkOut workOut = service.getById(id);
 
-        if (optional.isPresent()) {
-            WorkOut workOut = optional.get();
+        if (workOut != null) {
 
             workOut.setName(received.getName());
             workOut.setDate(received.getDate());
@@ -76,10 +75,10 @@ public class WorkOutController implements IController<WorkOut> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable long id) {
-        Optional<WorkOut> workOut = service.getById(id);
+        WorkOut workOut = service.getById(id);
 
-        if (workOut.isPresent()) {
-            if (service.delete(workOut.get())) {
+        if (workOut != null) {
+            if (service.delete(workOut)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

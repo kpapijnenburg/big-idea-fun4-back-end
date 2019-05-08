@@ -4,13 +4,11 @@ import fitnessapp.interfaces.IService;
 import fitnessapp.model.Category;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
 
 public class CategoryService implements IService<Category> {
     @Override
-    public Optional<Category> getById(long id) {
-        return Optional.empty();
+    public Category getById(long id) {
+        return null;
     }
 
     @Override

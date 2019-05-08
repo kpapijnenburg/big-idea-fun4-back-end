@@ -26,10 +26,10 @@ public class SetController implements IController<Set> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Set> getById(@PathVariable long id) {
-        Optional<Set> set = service.getById(id);
+        Set set = service.getById(id);
 
-        if (set.isPresent()) {
-            return ResponseEntity.ok(set.get());
+        if (set != null) {
+            return ResponseEntity.ok(set);
         }
         return ResponseEntity.notFound().build();
     }
@@ -57,10 +57,9 @@ public class SetController implements IController<Set> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Set received, @PathVariable long id) {
-        Optional<Set> optional = service.getById(id);
+        Set set = service.getById(id);
 
-        if (optional.isPresent()) {
-            Set set = optional.get();
+        if (set != null) {
 
             set.setExerciseId(received.getExerciseId());
             set.setReps(received.getReps());
@@ -77,10 +76,10 @@ public class SetController implements IController<Set> {
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable long id) {
-        Optional<Set> set = service.getById(id);
+        Set set = service.getById(id);
 
-        if (set.isPresent()) {
-            if (service.delete(set.get())) {
+        if (set != null) {
+            if (service.delete(set)) {
                 return ResponseEntity.accepted().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
