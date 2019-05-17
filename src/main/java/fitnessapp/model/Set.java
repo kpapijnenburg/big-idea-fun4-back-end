@@ -12,7 +12,9 @@ public class Set {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int exerciseId;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Exercise exercise;
+
     private double weight;
     private int reps;
 
@@ -20,8 +22,8 @@ public class Set {
 
     }
 
-    public Set(int exerciseId, float weight, int reps) {
-        this.exerciseId = exerciseId;
+    public Set(Exercise exercise, double weight, int reps) {
+        this.exercise = exercise;
         this.weight = weight;
         this.reps = reps;
     }
@@ -34,6 +36,13 @@ public class Set {
         this.id = id;
     }
 
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
 
     public double getWeight() {
         return weight;
@@ -50,12 +59,6 @@ public class Set {
     public void setReps(int reps) {
         this.reps = reps;
     }
-
-    public int getExerciseId() {
-        return exerciseId;
-    }
-
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
-    }
 }
+
+

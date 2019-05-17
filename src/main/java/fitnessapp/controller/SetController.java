@@ -61,7 +61,6 @@ public class SetController implements IController<Set> {
 
         if (set != null) {
 
-            set.setExerciseId(received.getExerciseId());
             set.setReps(received.getReps());
             set.setWeight(received.getWeight());
 

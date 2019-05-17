@@ -13,19 +13,12 @@ public class User {
     private long id;
 
     private String name;
+    //todo Email moet unique zijn
     private String email;
     private String password;
 
-
     public User() {
 
-    }
-
-    public User(long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
     }
 
     public User(String name, String email, String password) {

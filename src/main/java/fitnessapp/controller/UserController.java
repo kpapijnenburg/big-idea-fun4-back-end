@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -84,10 +83,10 @@ public class UserController implements IController<User> {
     }
 
     @RequestMapping(value = "/getByCredentials", method = RequestMethod.POST)
-    public ResponseEntity getByCredentials(@RequestBody User credentials){
+    public ResponseEntity getByCredentials(@RequestBody User credentials) {
         User user = service.getByCredentials(credentials.getEmail(), credentials.getPassword());
 
-        if (user != null){
+        if (user != null) {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
