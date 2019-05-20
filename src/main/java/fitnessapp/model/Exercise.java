@@ -11,7 +11,7 @@ public class Exercise {
     private long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Category.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Category.class, fetch = FetchType.EAGER)
     private List<Category> categories;
 
     public Exercise() {
