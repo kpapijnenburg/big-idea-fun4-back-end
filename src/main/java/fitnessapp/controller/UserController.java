@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController implements IController<User> {
 
     private UserService service;

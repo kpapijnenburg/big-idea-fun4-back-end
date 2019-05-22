@@ -142,7 +142,7 @@ public class WorkOutControllerTest {
     public void getByUserId_noWorkOutsPresent_returnsNoContent(){
         when(service.getByUserId(any(long.class))).thenReturn(new ArrayList<>());
 
-        ResponseEntity response = controller.getByUserId(1);
+        ResponseEntity response = controller.getByUserId(1L);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
@@ -151,7 +151,7 @@ public class WorkOutControllerTest {
     public void getByUserId_workOutsArePresent_returnsOK(){
         when(service.getByUserId(any(long.class))).thenReturn(Arrays.asList(new WorkOut(), new WorkOut()));
 
-        ResponseEntity response = controller.getByUserId(1);
+        ResponseEntity response = controller.getByUserId(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }

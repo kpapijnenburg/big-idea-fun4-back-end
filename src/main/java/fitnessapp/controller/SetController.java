@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/sets")
+@CrossOrigin
 public class SetController implements IController<Set> {
 
     private SetService service;

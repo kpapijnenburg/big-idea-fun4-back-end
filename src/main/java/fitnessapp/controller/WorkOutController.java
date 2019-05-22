@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/workouts")
+@CrossOrigin
 public class WorkOutController implements IController<WorkOut> {
 
     private WorkOutService service;
@@ -87,7 +87,7 @@ public class WorkOutController implements IController<WorkOut> {
     }
 
     @RequestMapping(value = "/getByUserId/{id}")
-    public ResponseEntity getByUserId(@PathVariable long id) {
+    public ResponseEntity getByUserId(@PathVariable Long id) {
         List<WorkOut> workOuts = service.getByUserId(id);
 
         if (workOuts.isEmpty()) {

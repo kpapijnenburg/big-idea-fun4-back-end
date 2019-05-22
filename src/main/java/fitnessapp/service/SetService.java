@@ -57,11 +57,37 @@ public class SetService implements IService<Set> {
 
     @Override
     public boolean update(Set set) {
+        Transaction tx = null;
+
+        try(Session session = util.getSessionFactory().openSession()){
+            tx = session.beginTransaction();
+
+            session.update(set);
+
+            tx.commit();
+
+            return true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+        }
         return false;
     }
 
     @Override
     public boolean delete(Set set) {
+        Transaction tx = null;
+
+        try(Session session = util.getSessionFactory().openSession()){
+            tx = session.beginTransaction();
+
+            session.delete(set);
+
+            tx.commit();
+
+            return true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+        }
         return false;
     }
 
