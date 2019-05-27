@@ -10,7 +10,7 @@ public class Set {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private Exercise exercise;
 
     private double weight;

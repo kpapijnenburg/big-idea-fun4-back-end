@@ -65,7 +65,7 @@ public class WorkOutService implements IService<WorkOut> {
         try (Session session = util.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
 
-            session.update(workOut);
+            session.merge(workOut);
 
             tx.commit();
             return true;

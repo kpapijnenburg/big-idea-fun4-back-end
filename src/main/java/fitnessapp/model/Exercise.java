@@ -12,7 +12,6 @@ public class Exercise {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Category.class, fetch = FetchType.EAGER)
-    @Embedded
     private List<Category> categories;
 
     public Exercise() {
