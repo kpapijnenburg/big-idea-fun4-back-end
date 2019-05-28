@@ -1,9 +1,7 @@
 package fitnessapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -13,17 +11,15 @@ public class Category {
     private long id;
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Exercise> exercises;
+
     public Category() {
-
     }
 
-    public Category(long id, String name) {
-        this.id = id;
+    public Category(String name, List<Exercise> exercises) {
         this.name = name;
-    }
-
-    public Category(String name) {
-        this.name = name;
+        this.exercises = exercises;
     }
 
     public long getId() {
@@ -40,5 +36,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

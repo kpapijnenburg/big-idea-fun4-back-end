@@ -3,8 +3,6 @@ package fitnessapp.model;
 import javax.persistence.*;
 import java.util.List;
 
-//todo add workouts
-
 @Entity
 public class User {
 
@@ -13,12 +11,19 @@ public class User {
     private long id;
 
     private String name;
-    //todo Email moet unique zijn
+
+    @Column(unique = true)
     private String email;
+
     private String password;
 
     public User() {
 
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
     public User(String name, String email, String password) {

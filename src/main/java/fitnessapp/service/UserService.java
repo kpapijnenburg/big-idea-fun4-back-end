@@ -7,10 +7,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Optional;
 
 //todo add password hashing.
 // todo sanitize user
@@ -18,9 +18,11 @@ import java.util.Optional;
 public class UserService implements IService<User> {
 
     private HibernateUtil util;
+    private BCryptPasswordEncoder encoder;
 
     public UserService() {
         util = new HibernateUtil();
+        encoder = new BCryptPasswordEncoder(11);
     }
 
     @Override
@@ -45,6 +47,9 @@ public class UserService implements IService<User> {
 
     @Override
     public boolean save(User user) {
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
         Transaction tx = null;
 
         try (Session session = util.getSessionFactory().openSession()) {
@@ -106,16 +111,21 @@ public class UserService implements IService<User> {
     }
 
     public User getByCredentials(String email, String password) {
-        try(Session session = util.getSessionFactory().openSession()){
-
-            String hql = "FROM User WHERE email = :email AND password = :password";
+        try(Session session = util.getSessionFactory().openSession()) {
+            String hql = "FROM User WHERE email = :email";
             Query query = session.createQuery(hql);
             query.setParameter("email", email);
-            query.setParameter("password", password);
 
-            return (User) query.getSingleResult();
+            List<User> foundUsers = query.getResultList();
+
+            for (User user : foundUsers) {
+                if (encoder.matches(password, user.getPassword())) {
+                    return user;
+                }
+            }
         } catch (HibernateException e){
-            return null;
+            e.printStackTrace();
         }
+        return null;
     }
 }

@@ -11,16 +11,11 @@ public class Exercise {
     private long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Category.class, fetch = FetchType.EAGER)
-    private List<Category> categories;
-
     public Exercise() {
-
     }
 
-    public Exercise(String name, List<Category> categories) {
+    public Exercise(String name) {
         this.name = name;
-        this.categories = categories;
     }
 
     public long getId() {
@@ -37,13 +32,5 @@ public class Exercise {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 }
