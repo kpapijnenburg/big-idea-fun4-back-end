@@ -12,9 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Query;
 import java.util.List;
 
-//todo add password hashing.
-// todo sanitize user
-
 public class UserService implements IService<User> {
 
     private HibernateUtil util;
@@ -38,7 +35,14 @@ public class UserService implements IService<User> {
     @Override
     public List<User> getAll() {
         try(Session session = util.getSessionFactory().openSession()){
-            return session.createQuery("FROM User", User.class).list();
+            List<User> users = session.createQuery("FROM User", User.class).list();
+
+            for(User user: users){
+                user.setPassword("");
+            }
+
+            return users;
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -120,6 +124,7 @@ public class UserService implements IService<User> {
 
             for (User user : foundUsers) {
                 if (encoder.matches(password, user.getPassword())) {
+                    user.setPassword("");
                     return user;
                 }
             }
