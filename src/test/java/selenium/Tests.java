@@ -1,22 +1,22 @@
 package selenium;
 
-import static junit.framework.TestCase.*;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class Tests {
 
     private static SeleniumMethods selenium;
 
-    @BeforeClass
-    public static void setup(){
+    @Before
+    public void setup(){
         selenium = new SeleniumMethods();
     }
 
-    @AfterClass
-    public static void tearDown(){
+    @After
+    public void tearDown(){
         selenium.closeWindow();
     }
 
@@ -24,4 +24,37 @@ public class Tests {
     public void WhenPageHasLoaded_thenLoginHeaderIsAvailable(){
         assertTrue(selenium.isLoginHeaderAvailable());
     }
+
+    @Test
+    public void whenHomePageLoaded_thenAddWorkoutButtonIsAvailable(){
+        selenium.login();
+
+        assertTrue(selenium.newWorkoutButtonAvailable());
+    }
+
+    @Test
+    public void whenHomePageLoaded_thenLogoutButtonIsPresent(){
+        selenium.login();
+
+        assertTrue(selenium.logoutButtonVisible());
+    }
+
+    @Test
+    public void whenAddExerciseModalIsOpen_thenNameFieldIsPresent(){
+        selenium.login();
+        selenium.openNewWorkOutModal();
+
+        assertTrue(selenium.isNameFieldPresent());
+
+    }
+
+    @Test
+    public void whenExercisesIsAdded_thenExercisesModalIsClosed(){
+        selenium.login();
+        selenium.openNewWorkOutModal();
+        selenium.createNewExercise();
+
+        assertTrue(selenium.workoutModalPresent());
+    }
+
 }
