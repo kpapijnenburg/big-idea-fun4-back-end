@@ -2,7 +2,6 @@ package fitnessapp.config;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -30,7 +29,7 @@ public class SeleniumConfig {
 
     public SeleniumConfig() {
         this.capabilities = capabilities = DesiredCapabilities.firefox();
-        this.driver = driver = new ChromeDriver(capabilities);
+        this.driver = driver = new FirefoxDriver(capabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
