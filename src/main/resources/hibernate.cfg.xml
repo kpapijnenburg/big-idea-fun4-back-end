@@ -5,8 +5,8 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <!--<property name="hibernate.connection.url">jdbc:mysql://192.168.30.183:3307/db</property>-->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/db</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.30.183:3307/db</property>
+        <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3307/db</property>-->
         <!--<property name="hibernate.connection.url">jdbc:mysql://studmysql01.fhict.local/dbi388613</property>-->
         <property name="hibernate.connection.username">user</property>
         <property name="hibernate.connection.password">password</property>
@@ -15,6 +15,7 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.autocommit">true</property>
 
         <mapping class="fitnessapp.model.User"/>
         <mapping class="fitnessapp.model.Exercise"/>
